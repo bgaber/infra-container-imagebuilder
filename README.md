@@ -11,7 +11,7 @@ infra-container-imagebuilder repository -> Repository settings -> Webhooks setti
 
 How to start Drone
 ---
-On SPLAWSSREDKR01 perform the following from CLI:
+On your Drone server perform the following from CLI:
 
 1. First determine if Drone or Drone Runner are running
 
