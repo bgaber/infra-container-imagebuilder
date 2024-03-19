@@ -1,0 +1,18 @@
+pipelines:
+  # To set a whole pipeline to run manually, use a custom pipeline trigger.
+  custom:
+    build-custom:
+      # https://support.atlassian.com/bitbucket-cloud/docs/step-options/
+      - step:
+          name: Build Docker Image and push it to ECR
+
+          # https://bitbucket.org/atlassian/aws-ecr-push-image/src/master/
+          script:
+            # build the image
+            - docker build -t ${REPO_NAME}:${BITBUCKET_BUILD_NUMBER} .
+
+            # use the pipe to push the image to AWS ECR
+            - pipe: atlassian/aws-ecr-push-image:2.0.0
+              variables:
+                IMAGE_NAME: sre-team/imagebuilder
+                TAGS: '${BITBUCKET_BUILD_NUMBER}'
